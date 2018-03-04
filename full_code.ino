@@ -30,6 +30,10 @@ void setup() {
 }
 
 void loop() {
+  // turn on motor
+  motorControl(100);
+  
+  // read values of sensors
   sensVals[0] = digitalRead(sensor1);
   sensVals[1] = digitalRead(sensor2);
   sensVals[2] = digitalRead(sensor3);
@@ -41,40 +45,59 @@ void loop() {
     num = num*10 + sensVals[i];
   }
 
+ // determining which note to play and sending appropriate MIDI message
   switch (num) {
     case 1111: // no note playing
-      MIDImessage(noteOnCom, 0, 0); 
+      MIDImessage(noteOnCom, 0, 0);
       break;
+      
     case 1110: // A (line 3)
       MIDImessage(noteOnCom, 69, 100);
+      delay(1000);                      // allowing note to play
+      MIDImessage(noteOnCom, 69, 0);    // turning note off
       break;
+      
     case 1101: // B
       MIDImessage(noteOnCom, 71, 100);
+      delay(1000);                      // allowing note to play 
+      MIDImessage(noteOnCom, 71, 0);    // turning note off
       break;
+      
     case 1100: // C
       MIDImessage(noteOnCom, 72, 100);
+      delay(1000);                      // allowing note to play 
+      MIDImessage(noteOnCom, 72, 0);    // turning note off
       break;
+      
     case 1011: // D
       MIDImessage(noteOnCom, 74, 100);
+      delay(1000);                      // allowing note to play 
+      MIDImessage(noteOnCom, 74, 0);    // turning note off
       break; 
+      
     case 1010: // E
-      MIDImessage(noteOnCom, 76, 100); 
+      MIDImessage(noteOnCom, 76, 100);
+      delay(1000);                      // allowing note to play 
+      MIDImessage(noteOnCom, 76, 0);    // turning note off
       break;
+      
     case 1001: // F
       MIDImessage(noteOnCom, 77, 100);
+      delay(1000);                      // allowing note to play 
+      MIDImessage(noteOnCom, 77, 0);    // turning note off
       break;
+      
     case 1000: // G
       MIDImessage(noteOnCom, 79, 100);
+      delay(1000);                      // allowing note to play 
+      MIDImessage(noteOnCom, 79, 0);    // turning note off
       break; 
+      
     case 0111: // A'
       MIDImessage(noteOnCom, 81, 100);
-      break;
-    default:
-      MIDImessage(noteOnCom, 81, 0); // no note playing    
+      delay(1000);                      // allowing note to play 
+      MIDImessage(noteOnCom, 81, 0);    // turning note off   
   }
-  
-  motorControl(100); // turn on motor
-  
 }
 
 void MIDImessage(int command, int note, int velocity) {
