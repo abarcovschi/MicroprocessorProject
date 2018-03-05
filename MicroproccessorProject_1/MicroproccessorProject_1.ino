@@ -1,10 +1,11 @@
-int sensor1 = 3;
-int sensor2 = 4;
-int sensor3 = 5;
-int sensor4 = 6;
-int sensVals[4];
+
+int sensor1 = 2;
+int sensor2 = 3;
+int sensor3 = 4;
+int sensor4 = 5;
+int senseVals[4];
 int num = 0;
-int prevNum = 0;
+String bits = "";
 
 void setup() {
   // put your setup code here, to run once:
@@ -17,25 +18,58 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  sensVals[0] = digitalRead(sensor1);
-  sensVals[1] = digitalRead(sensor2);
-  sensVals[2] = digitalRead(sensor3);
-  sensVals[3] = digitalRead(sensor4);
+  senseVals[0] = digitalRead(sensor1);
+  senseVals[1] = digitalRead(sensor2);
+  senseVals[2] = digitalRead(sensor3);
+  senseVals[3] = digitalRead(sensor4);
 
-  // TEST
-  Serial.print(sensVals[0]);
-  Serial.print(sensVals[1]);
-  Serial.print(sensVals[2]);
-  Serial.print(sensVals[3]);
-  
   for (int i = 0; i <= 3; i++)
   {
-    num = num*10 + sensVals[i];
+    bits = bits + senseVals[i];
   }
 
-  // TEST
-  Serial.print(num);
+  num = bits.toInt();
+  bits = ""; //reset
 
+  // TEST
+  Serial.println(num);
+  
+  switch(num)
+  {
+    case 1110:
+    playNote(69);
+    break;
+    case 1101:
+    playNote(71);
+    break;
+    case 1100:
+    playNote(72);
+    break;
+    case 1011:
+    playNote(74);
+    break;
+    case 1010:
+    playNote(76);
+    break;
+    case 1001:
+    playNote(77);
+    break;
+    case 1000:
+    playNote(79);
+    break;
+    case 0111:
+    playNote(81);
+    break;
+  }
   delay(1000);
-  // if the contents of the array hasn't changed since last check, do nothing/skip switch statements?
 }
+
+// Possible error in playNote method
+
+void playNote(byte note)
+{
+    Serial.write();  // MIDI command byte
+    Serial.write(note); //MIDI note byte
+    Serial.write();  //MIDI volume byte
+}
+
