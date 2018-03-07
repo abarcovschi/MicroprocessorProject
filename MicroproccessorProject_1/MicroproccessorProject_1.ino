@@ -1,19 +1,36 @@
+#include <MIDI.h>
+
+const int velocity = 127; //Max Velocity (range is 0-127)
+const int channel = 1; //MIDI Channel 1 (out of 16)
 
 int sensor1 = 2;
 int sensor2 = 3;
 int sensor3 = 4;
 int sensor4 = 5;
 int senseVals[4];
+int pwmMotor = 9;
 int num = 0;
 String bits = "";
 
+int noteOn = 144; // note on command
+int noteOff = 128; // note off command
+int vel = 127; // note volume, 127 is max volume
+
+struct MySettings : public midi::DefaultSettings
+{
+  static const long BaudRate = 9600;
+};
+MIDI_CREATE_CUSTOM_INSTANCE(HardwareSerial, Serial, MIDI, MySettings);
+
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(9600);
+  MIDI.begin();
   pinMode(sensor1, INPUT);
   pinMode(sensor2, INPUT);
   pinMode(sensor3, INPUT);
   pinMode(sensor4, INPUT);
+  pinMode(pwmMotor, OUTPUT);
+  motorControl(100);
 }
 
 void loop() {
@@ -32,44 +49,54 @@ void loop() {
   bits = ""; //reset
 
   // TEST
-  Serial.println(num);
-  
-  switch(num)
+  //Serial.println(num);
+
+  switch (num)
   {
     case 1110:
-    playNote(69);
-    break;
+      MIDI.sendNoteOn(69, velocity, channel);  // Turn the note on.
+      delay(500);                               // Wait 500 milliseconds.
+      MIDI.sendNoteOff(69, velocity, channel); // Turn the note off.
+      break;
     case 1101:
-    playNote(71);
-    break;
+      MIDI.sendNoteOn(71, velocity, channel);  // Turn the note on.
+      delay(500);                               // Wait 500 milliseconds.
+      MIDI.sendNoteOff(71, velocity, channel); // Turn the note off.
+      break;
     case 1100:
-    playNote(72);
-    break;
+      MIDI.sendNoteOn(72, velocity, channel);  // Turn the note on.
+      delay(500);                               // Wait 500 milliseconds.
+      MIDI.sendNoteOff(72, velocity, channel); // Turn the note off.
+      break;
     case 1011:
-    playNote(74);
-    break;
+      MIDI.sendNoteOn(74, velocity, channel);  // Turn the note on.
+      delay(500);                               // Wait 500 milliseconds.
+      MIDI.sendNoteOff(74, velocity, channel); // Turn the note off.
+      break;
     case 1010:
-    playNote(76);
-    break;
+      MIDI.sendNoteOn(76, velocity, channel);  // Turn the note on.
+      delay(500);                               // Wait 500 milliseconds.
+      MIDI.sendNoteOff(76, velocity, channel); // Turn the note off.
+      break;
     case 1001:
-    playNote(77);
-    break;
+      MIDI.sendNoteOn(77, velocity, channel);  // Turn the note on.
+      delay(500);                               // Wait 500 milliseconds.
+      MIDI.sendNoteOff(77, velocity, channel); // Turn the note off.
+      break;
     case 1000:
-    playNote(79);
-    break;
+      MIDI.sendNoteOn(79, velocity, channel);  // Turn the note on.
+      delay(500);                               // Wait 500 milliseconds.
+      MIDI.sendNoteOff(79, velocity, channel); // Turn the note off.
+      break;
     case 0111:
-    playNote(81);
-    break;
+      MIDI.sendNoteOn(81, velocity, channel);  // Turn the note on.
+      delay(500);                               // Wait 500 milliseconds.
+      MIDI.sendNoteOff(81, velocity, channel); // Turn the note off.
+      break;
   }
   delay(1000);
 }
 
-// Possible error in playNote method
-
-void playNote(byte note)
-{
-    Serial.write();  // MIDI command byte
-    Serial.write(note); //MIDI note byte
-    Serial.write();  //MIDI volume byte
+void motorControl(int speed) {
+  analogWrite(pwmMotor, speed);
 }
-
