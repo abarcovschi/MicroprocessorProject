@@ -57,8 +57,8 @@ void loop() {
     senseString = senseString + senseVals[i];
   }
   
-  num = bits.toInt(); //switch case needs an int 
-  bits = "";          //reset
+  num = senseString.toInt(); //switch case needs an int 
+  senseString = "";          //reset
 
   // determining which note to play and sending appropriate MIDI message
   switch (num)
@@ -98,7 +98,7 @@ void loop() {
       delay(500);                              // Wait 500 milliseconds.
       MIDI.sendNoteOff(79, velocity, channel); // Turn the note off.
       break;
-    case 0111:
+    case 111:
       MIDI.sendNoteOn(81, velocity, channel);  // Turn the note on.
       delay(500);                              // Wait 500 milliseconds.
       MIDI.sendNoteOff(81, velocity, channel); // Turn the note off.
