@@ -16,7 +16,7 @@ int noteOn = 144;       // 10010000, note on command
 int noteOff = 128;      // 10000000, note off command
 
 // Motor control
-int pwmMotor = 3;       // pwm pin ~D3
+int pwmMotor = 9;       // pwm pin ~D3
 
 // Other vars for correct notes combinations
 int senseVals[4];       // value of sensor per location
@@ -42,9 +42,6 @@ void setup() {
 }
 
 void loop() {
-  // turn on motor
-  motorControl(100);
-  
   // read values of sensors
   senseVals[0] = digitalRead(sensor1);
   senseVals[1] = digitalRead(sensor2);
@@ -88,12 +85,12 @@ void loop() {
       delay(500);                              // Wait 500 milliseconds.
       MIDI.sendNoteOff(76, velocity, channel); // Turn the note off.
       break;
-    case 1001:
+    case 110:
       MIDI.sendNoteOn(77, velocity, channel);  // Turn the note on.
       delay(500);                              // Wait 500 milliseconds.
       MIDI.sendNoteOff(77, velocity, channel); // Turn the note off.
       break;
-    case 1000:
+    case 101:
       MIDI.sendNoteOn(79, velocity, channel);  // Turn the note on.
       delay(500);                              // Wait 500 milliseconds.
       MIDI.sendNoteOff(79, velocity, channel); // Turn the note off.
