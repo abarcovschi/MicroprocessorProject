@@ -36,7 +36,9 @@ void setup() {
   pinMode(sensor3,  INPUT);
   pinMode(sensor4,  INPUT);
   pinMode(pwmMotor, OUTPUT);
-  
+  //Serial.begin(9600);
+  /*while (! Serial);
+  Serial.println("Speed 0 to 255");*/
   // turn on motor
   motorControl(100);
 }
@@ -56,6 +58,14 @@ void loop() {
   
   num = senseString.toInt(); //switch case needs an int 
   senseString = "";          //reset
+  /*if (Serial.available())
+  {
+    int speed = Serial.parseInt();
+    if (speed >= 0 && speed <= 255)
+    {
+      analogWrite(pwmMotor, speed);
+    }
+  }*/
 
   // determining which note to play and sending appropriate MIDI message
   switch (num)
@@ -73,7 +83,7 @@ void loop() {
     case 1100:
       MIDI.sendNoteOn(72, velocity, channel);  // Turn the note on.
       delay(500);                              // Wait 500 milliseconds.
-      MIDI.sendNoteOff(72, velocity, channel); // Turn the note off.
+      MIDI.sendNoteOff(72, velocity, channel); // Turn the note off.0
       break;
     case 1011:
       MIDI.sendNoteOn(74, velocity, channel);  // Turn the note on.
@@ -102,6 +112,7 @@ void loop() {
       break;
   }
 }
+ 
 
 void MIDImessage(int command, int note, int velocity) {
   // Serial is D1 (TX = transmitter)
