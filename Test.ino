@@ -11,8 +11,8 @@ int sensor4 = 5;        // digital pin
 
 //Joystick pins
 const int SW_pin = 10; // digital pin connected to switch output
-const int X_pin = 0; // analog pin connected to X output
-const int Y_pin = 1; // analog pin connected to Y output
+const int X_pin = A0; // analog pin connected to X output
+const int Y_pin = A1; // analog pin connected to Y output
 
 // MIDI control
 int velocity = 127;     // 00000000 -> 01111111 (default 0)  
