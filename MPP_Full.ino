@@ -9,6 +9,10 @@ int sensor2 = 3;        // digital pin
 int sensor3 = 4;        // digital pin
 int sensor4 = 5;        // digital pin
 
+// leds to show which mode is on
+int ledTetris = 12;
+int ledDrums = 13;
+
 //Joystick pins
 const int SW_pin = 10;  // digital pin connected to switch output
 const int X_pin = 0;    // analog pin connected to X output
@@ -36,7 +40,7 @@ int motorSpeed = 200;
 int senseVals[4];       // value of sensor per location
 String senseString = "";// convert array values to a single string
 int num;                // binary combination of sensor values
-boolean note = true;    // TRUE = 4 bit note mode, FALSE = drum mode
+boolean mode = true;    // TRUE = 4 bit note mode, FALSE = drum mode
 
 int counter;
 
@@ -57,9 +61,16 @@ void setup() {
   pinMode(sensor3,  INPUT);
   pinMode(sensor4,  INPUT);
   pinMode(pwmMotor, OUTPUT);
-  
+  pinMode(SW_pin,INPUT_PULLUP);
+  pinMode(X_pin,INPUT);
+  pinMode(Y_pin,INPUT);
+  pinMode(ledTetris, OUTPUT);
+  pinMode(ledDrums, OUTPUT);
+
+  mode=true;
   // turn on motor
   motorControl();
+  beginTest();
 }
 
 void loop() {
@@ -81,11 +92,13 @@ void loop() {
   //num = senseString.toInt(); //switch case needs an int 
   //senseString = "";          //reset
   
-  //joystick();                //calling the joystick function
-  //motorControl();            //change motor speed
+  joystick();                //calling the joystick function
+  motorControl();            //change motor speed
 
     // determining which note to play and sending appropriate MIDI message
-    if(note==true){
+    if(mode==true){
+      digitalWrite(ledTetris, HIGH);
+      digitalWrite(ledDrums, LOW);
         switch (num)
         {
           case 14:
@@ -167,6 +180,9 @@ void loop() {
     }
     else // The drum kit notes
     {
+      digitalWrite(ledTetris, LOW);
+      digitalWrite(ledDrums, HIGH);
+      
         if(digitalRead(sensor1)== 0)
         {
            MIDI.sendNoteOn(69, velocity, channel2);  // Turn the note on. 
@@ -192,14 +208,14 @@ void loop() {
       
     }
   
-//Display values - can be deleted after the code testing is complete
-//Serial.print("\nNote");
-//Serial.print(note);
-//Serial.print("\nSpeed");
-//Serial.print(motorSpeed);
-//Serial.print("\nVelocity");
-//Serial.print(velocity);
-//delay(1000);
+////Display values - can be deleted after the code testing is complete
+Serial.print("\nMode");
+Serial.print(mode);
+Serial.print("\nSpeed");
+Serial.print(motorSpeed);
+Serial.print("\nVelocity");
+Serial.print(velocity);
+delay(1000);
 }
 
 void joystick ()
@@ -214,31 +230,32 @@ void joystick ()
   {
     counter = 0;
   }
-  if(counter > 3)
+  if(counter > 5)
   {
-    note = (!note);
+    mode = (!mode);
   }
   
   //Reads the joystick inputs
-  motorSpeed = map(analogRead(X_pin),0,1023,0,255);
-  velocity = map(analogRead(Y_pin),0,1023,0,255);
-  
-  /* Code for making the change gradual
-  int a=map(analogRead(X_pin),0,1023,0,255);
-  if (motorSpeed>a)
+  //Code for making the change gradual
+  int a=map(analogRead(X_pin),0,1023,0,100);
+  int b=map(analogRead(Y_pin),0,1023,0,100);
+  if ((a>75)||(motorSpeed<0))
   {
   motorSpeed=motorSpeed+10;
   }
-  else{motorSpeed=motorSpeed-10;
+  else if((a<25)||(motorSpeed>255))
+  {
+    motorSpeed=motorSpeed-10;
   }
-  int b=map(analogRead(Y_pin),0,1023,0,255);
-  if (velocity>b)
+  if (b>75||(velocity<0))
   {
   velocity=velocity+10;
   }
-  else{velocity=velocity-10
+  else if(b<25||(velocity>127))
+  {
+    velocity=velocity-10;
   }
-  */
+  
 }
 
 void motorControl() 
@@ -251,7 +268,7 @@ void beginTest()
   for (int i=60;i<85;i++) // Turns all notes to be used on and off, one by one
   {
     MIDI.sendNoteOn(i,velocity,channel);
-    delay(500);
+    delay(250);
     MIDI.sendNoteOff(i,velocity,channel);
   }
 }
