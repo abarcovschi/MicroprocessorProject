@@ -70,7 +70,7 @@ void setup() {
   mode=true;
   // turn on motor
   motorControl();
-  beginTest();
+  //beginTest();
 }
 
 void loop() {
@@ -103,80 +103,118 @@ void loop() {
         {
           case 14:
             MIDI.sendNoteOn(60, velocity, channel);  // Turn the note on.
-            delay(500);                              // Wait 500 milliseconds.
-            MIDI.sendNoteOff(60, velocity, channel); // Turn the note off.
+//            delay(500);                              // Wait 500 milliseconds.
+//            MIDI.sendNoteOff(60, velocity, channel); // Turn the note off.
+            MIDI.sendNoteOff(previousNote, velocity, channel);
+            previousNote = 60;
             break;
           case 13:
             MIDI.sendNoteOn(62, velocity, channel);  // Turn the note on.
-            delay(500);                              // Wait 500 milliseconds.
-            MIDI.sendNoteOff(62, velocity, channel); // Turn the note off.
+//            delay(500);                              // Wait 500 milliseconds.
+//            MIDI.sendNoteOff(62, velocity, channel); // Turn the note off.
+            MIDI.sendNoteOff(previousNote, velocity, channel);
+            previousNote = 62;
             break;
           case 12:
             MIDI.sendNoteOn(64, velocity, channel);  // Turn the note on.
-            delay(500);                              // Wait 500 milliseconds.
-            MIDI.sendNoteOff(64, velocity, channel); // Turn the note off.
+//            delay(500);                              // Wait 500 milliseconds.
+//            MIDI.sendNoteOff(64, velocity, channel); // Turn the note off.
+            MIDI.sendNoteOff(previousNote, velocity, channel);
+            previousNote = 64;
             break;
           case 11:
             MIDI.sendNoteOn(65, velocity, channel);  // Turn the note on.
-            delay(500);                              // Wait 500 milliseconds.
-            MIDI.sendNoteOff(65, velocity, channel); // Turn the note off.
+//            delay(500);                              // Wait 500 milliseconds.
+//            MIDI.sendNoteOff(65, velocity, channel); // Turn the note off.
+            MIDI.sendNoteOff(previousNote, velocity, channel);
+            previousNote = 65;
             break;
           case 10:
             MIDI.sendNoteOn(67, velocity, channel);  // Turn the note on.
-            delay(500);                              // Wait 500 milliseconds.
-            MIDI.sendNoteOff(67, velocity, channel); // Turn the note off.
+//            delay(500);                              // Wait 500 milliseconds.
+//            MIDI.sendNoteOff(67, velocity, channel); // Turn the note off.
+            MIDI.sendNoteOff(previousNote, velocity, channel);
+            previousNote = 67;
             break;
           case 9:
+                      MIDI.sendNoteOff(previousNote, velocity, channel);
             MIDI.sendNoteOn(69, velocity, channel);  // Turn the note on.
-            delay(500);                              // Wait 500 milliseconds.
-            MIDI.sendNoteOff(69, velocity, channel); // Turn the note off.
+//            delay(500);                              // Wait 500 milliseconds.
+//            MIDI.sendNoteOff(69, velocity, channel); // Turn the note off.
+
+            previousNote = 69;
             break;
           case 8:
+          MIDI.sendNoteOff(previousNote, velocity, channel);
             MIDI.sendNoteOn(71, velocity, channel);  // Turn the note on.
-            delay(500);                              // Wait 500 milliseconds.
-            MIDI.sendNoteOff(71, velocity, channel); // Turn the note off.
+//            delay(500);                              // Wait 500 milliseconds.
+//            MIDI.sendNoteOff(71, velocity, channel); // Turn the note off.
+            
+            previousNote = 71;
             break;
           case 7:
+          MIDI.sendNoteOff(previousNote, velocity, channel);
             MIDI.sendNoteOn(72, velocity, channel);  // Turn the note on.
-            delay(500);                              // Wait 500 milliseconds.
-            MIDI.sendNoteOff(72, velocity, channel); // Turn the note off.
+//            delay(500);                              // Wait 500 milliseconds.
+//            MIDI.sendNoteOff(72, velocity, channel); // Turn the note off.
+            
+            previousNote = 72;
             break;
           case 6:
+          MIDI.sendNoteOff(previousNote, velocity, channel);
             MIDI.sendNoteOn(74, velocity, channel);  // Turn the note on.
-            delay(500);                              // Wait 500 milliseconds.
-            MIDI.sendNoteOff(74, velocity, channel); // Turn the note off.
+//            delay(500);                              // Wait 500 milliseconds.
+//            MIDI.sendNoteOff(74, velocity, channel); // Turn the note off.
+            
+            previousNote = 74;
             break;
           case 5:
+          MIDI.sendNoteOff(previousNote, velocity, channel);
             MIDI.sendNoteOn(76, velocity, channel);  // Turn the note on.
-            delay(500);                              // Wait 500 milliseconds.
-            MIDI.sendNoteOff(76, velocity, channel); // Turn the note off.
+//            delay(500);                              // Wait 500 milliseconds.
+//            MIDI.sendNoteOff(76, velocity, channel); // Turn the note off.
+            
+            previousNote = 76;
             break;
           case 4:
+          MIDI.sendNoteOff(previousNote, velocity, channel);
             MIDI.sendNoteOn(77, velocity, channel);  // Turn the note on.
-            delay(500);                              // Wait 500 milliseconds.
-            MIDI.sendNoteOff(77, velocity, channel); // Turn the note off.
+//            delay(500);                              // Wait 500 milliseconds.
+//            MIDI.sendNoteOff(77, velocity, channel); // Turn the note off.
+            
+            previousNote = 77;
             break;
           case 3:
+          MIDI.sendNoteOff(previousNote, velocity, channel);
             MIDI.sendNoteOn(79, velocity, channel);  // Turn the note on.
-            delay(500);                              // Wait 500 milliseconds.
-            MIDI.sendNoteOff(79, velocity, channel); // Turn the note off.
+//            delay(500);                              // Wait 500 milliseconds.
+//            MIDI.sendNoteOff(79, velocity, channel); // Turn the note off.
+            
+            previousNote = 79;
             break;
           case 2:
             MIDI.sendNoteOn(81, velocity, channel);  // Turn the note on.
-            delay(500);                              // Wait 500 milliseconds.
-            MIDI.sendNoteOff(81, velocity, channel); // Turn the note off.
+//            delay(500);                              // Wait 500 milliseconds.
+//            MIDI.sendNoteOff(81, velocity, channel); // Turn the note off.
+            MIDI.sendNoteOff(previousNote, velocity, channel);
+            previousNote = 81;
             break;
           case 1:
             MIDI.sendNoteOn(83, velocity, channel);  // Turn the note on.
-            delay(500);                              // Wait 500 milliseconds.
-            MIDI.sendNoteOff(83, velocity, channel); // Turn the note off.
+//            delay(500);                              // Wait 500 milliseconds.
+//            MIDI.sendNoteOff(83, velocity, channel); // Turn the note off.
+            MIDI.sendNoteOff(previousNote, velocity, channel);
+            previousNote = 83;
             break;
           case 0:
             MIDI.sendNoteOn(84, velocity, channel);  // Turn the note on.
-            delay(500);                              // Wait 500 milliseconds.
-            MIDI.sendNoteOff(84, velocity, channel); // Turn the note off.
+//            delay(500);                              // Wait 500 milliseconds.
+//            MIDI.sendNoteOff(84, velocity, channel); // Turn the note off.
+            MIDI.sendNoteOff(previousNote, velocity, channel);
+            previousNote = 84;
             break;
         }
+        delay(500-motorSpeed);
     }
     else // The drum kit notes
     {
@@ -200,37 +238,28 @@ void loop() {
           MIDI.sendNoteOn(72, velocity, channel5);  // Turn the note on.
         }
       
-        delay(500);
+        delay(250);
         MIDI.sendNoteOff(69, velocity, channel2); // Turn the note off.
         MIDI.sendNoteOff(70, velocity, channel3); // Turn the note off.  
         MIDI.sendNoteOff(71, velocity, channel4); // Turn the note off. 
         MIDI.sendNoteOff(72, velocity, channel5); // Turn the note off.
       
     }
-  
-////Display values - can be deleted after the code testing is complete
-Serial.print("\nMode");
-Serial.print(mode);
-Serial.print("\nSpeed");
-Serial.print(motorSpeed);
-Serial.print("\nVelocity");
-Serial.print(velocity);
-delay(1000);
 }
 
 void joystick ()
 {
   //Toggles between the two modes 
   //Manual debouncer - need to hold down click button for 3 counts until the mode changes
-  if(digitalRead(SW_pin) == 0) 
-  {
-    counter++;
-  }
-  else
-  {
-    counter = 0;
-  }
-  if(counter > 5)
+//  if(digitalRead(SW_pin) == 0) 
+//  {
+//    counter++;
+//  }
+//  else
+//  {
+//    counter = 0;
+//  }
+  if(digitalRead(SW_pin) == 0)
   {
     mode = (!mode);
   }
@@ -249,7 +278,7 @@ void joystick ()
   }
   if (b>75||(velocity<0))
   {
-  velocity=velocity+10;
+    velocity=velocity+10;
   }
   else if(b<25||(velocity>127))
   {
@@ -262,7 +291,7 @@ void motorControl()
 {
   analogWrite(pwmMotor, motorSpeed);
 }
-
+/*
 void beginTest()
 {
   for (int i=60;i<85;i++) // Turns all notes to be used on and off, one by one
@@ -270,5 +299,11 @@ void beginTest()
     MIDI.sendNoteOn(i,velocity,channel);
     delay(250);
     MIDI.sendNoteOff(i,velocity,channel);
-  }
+  }    
+      digitalWrite(ledTetris, HIGH);
+      digitalWrite(ledDrums, HIGH);
+      delay(1000);
+      digitalWrite(ledTetris, LOW);
+      digitalWrite(ledDrums, LOW);
 }
+*/
